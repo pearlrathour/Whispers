@@ -2,6 +2,7 @@ const express= require('express');
 const bodyParser= require('body-parser');
 const ejs= require('ejs');
 const { con, Users } = require('./models/Users');
+const md5= require("md5");
 const { Port } = require('./config');
 
 const app= express();
@@ -24,7 +25,7 @@ app.get("/login", function(req, res){
 app.post("/register", function(req,res){
     const newUser= new Users({
         email: req.body.username,
-        password: req.body.password
+        password: md5(req.body.password)
     })
     newUser.save();
 
@@ -33,7 +34,7 @@ app.post("/register", function(req,res){
 
 app.post("/login", function(req,res){
     const username= req.body.username;
-    const password= req.body.password;
+    const password= md5(req.body.password);
 
     Users.findOne({email: username})
         .then(function (founduser) {
