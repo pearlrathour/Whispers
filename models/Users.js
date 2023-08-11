@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const encrypt= require('mongoose-encryption');
 const {endpoint} = require('../config');
 
 const DB_URL = process.env.DB_URL;
@@ -13,6 +14,9 @@ const UserSchema = new mongoose.Schema({
     email: String,
     password: String
 });
+
+const secret= "Thisisourlittlesecret";
+UserSchema.plugin(encrypt, {secret: secret, encryptedFields: ['password']});
 
 const Users = mongoose.model("Users", UserSchema);
 

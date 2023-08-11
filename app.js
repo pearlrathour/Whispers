@@ -1,7 +1,6 @@
 const express= require('express');
 const bodyParser= require('body-parser');
 const ejs= require('ejs');
-const mongoose= require('mongoose');
 const { con, Users } = require('./models/Users');
 const { Port } = require('./config');
 
@@ -45,6 +44,7 @@ app.post("/login", function(req,res){
             }
         })
         .catch(function (error) {
+            console.log("Login Error")
             res.send(error);
             console.error("Error fetching tasks:", error);
         });
