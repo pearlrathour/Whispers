@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 // const encrypt= require('mongoose-encryption');
+const passportLocalMongoose= require('passport-local-mongoose');
 const {endpoint} = require('../config');
 
 const DB_URL = process.env.DB_URL;
@@ -14,6 +15,8 @@ const UserSchema = new mongoose.Schema({
     email: String,
     password: String
 });
+
+UserSchema.plugin(passportLocalMongoose);
 
 // const secret= "Thisisourlittlesecret";
 // UserSchema.plugin(encrypt, {secret: secret, encryptedFields: ['password']});
